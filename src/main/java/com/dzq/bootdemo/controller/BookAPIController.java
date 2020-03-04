@@ -1,9 +1,9 @@
 package com.dzq.bootdemo.controller;
 
-import com.dzq.api.vo.BookListResponse;
-import com.dzq.api.vo.BookResponse;
-import com.dzq.demo.pojo.Books;
-import com.dzq.demo.service.BookService;
+import com.dzq.bootdemo.vo.BookListResponse;
+import com.dzq.bootdemo.vo.BookResponse;
+import com.dzq.bootdemo.pojo.Books;
+import com.dzq.bootdemo.service.BookService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +19,11 @@ import java.util.List;
  */
 public class BookAPIController {
 
-    @Autowired
-    @Qualifier("BookServiceImpl")
-    private BookService bookService;
+    private final BookService bookService;
+
+    public BookAPIController( BookService bookService) {
+        this.bookService = bookService;
+    }
 
 
     /**

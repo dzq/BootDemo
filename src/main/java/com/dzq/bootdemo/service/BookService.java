@@ -1,9 +1,12 @@
 package com.dzq.bootdemo.service;
 
-import com.dzq.demo.pojo.Books;
+import com.dzq.bootdemo.pojo.Books;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Component
 //BookService:底下需要去实现,调用dao层
 public interface BookService {
     //增加一个Book

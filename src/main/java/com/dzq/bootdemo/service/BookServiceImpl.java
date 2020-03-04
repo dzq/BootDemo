@@ -1,16 +1,22 @@
 package com.dzq.bootdemo.service;
 
-import com.dzq.demo.dao.BookMapper;
-import com.dzq.demo.pojo.Books;
+import com.dzq.bootdemo.dao.BookMapper;
+import com.dzq.bootdemo.pojo.Books;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Component
 public class BookServiceImpl implements BookService {
 
     //调用dao层的操作，设置一个set接口，方便Spring管理
-    private BookMapper bookMapper;
+    private final BookMapper bookMapper;
 
-    public void setBookMapper(BookMapper bookMapper) {
+    public BookServiceImpl(BookMapper bookMapper) {
         this.bookMapper = bookMapper;
     }
 

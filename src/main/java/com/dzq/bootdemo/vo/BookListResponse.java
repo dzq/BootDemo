@@ -1,6 +1,6 @@
 package com.dzq.bootdemo.vo;
 
-import com.dzq.demo.pojo.Books;
+import com.dzq.bootdemo.pojo.Books;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
