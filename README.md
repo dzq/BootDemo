@@ -10,35 +10,74 @@ Tomcat 9
 Maven 3.6
 #### 目录结构
 ```shell
+├── java                                           #
+│   └── com                                        #
+│       └── dzq                                    #
+│           ├── api                                #
+│           │   ├── SwaggerConfig.java             # Swagger配置
+│           │   ├── controller                     #
+│           │   │   └── BookAPIController.java     # 书籍增删改查API
+│           │   └── vo                             #
+│           │       ├── BookListResponse.java      # 书籍列表返回对象
+│           │       ├── BookResponse.java          # 书籍返回对象
+│           │       └── ResponseBody.java          # 返回对象
+│           └── demo                               #
+│               ├── controller                     #
+│               │   └── BookController.java        # 书籍增删改查控制器
+│               ├── dao                            #
+│               │   ├── BookMapper.java            # 书籍Mapper接口
+│               │   └── BookMapper.xml             # 书籍Mapper的MyBatis文件
+│               ├── pojo                           #
+│               │   └── Books.java                 # 书籍数据模型
+│               └── service                        #
+│                   ├── BookService.java           # 书籍Service接口
+│                   └── BookServiceImpl.java       # 书籍Service实现
+├── resources                                      #
+│   ├── applicationContext.xml                     # Spring框架配置文件
+│   ├── database.properties                        # MySQL配置
+│   ├── mybatis-config.xml                         # MyBatis配置
+│   ├── spring-dao.xml                             # Spring整合MyBatis配置
+│   ├── spring-mvc.xml                             # SpringMVC配置
+│   └── spring-service.xml                         # Spring Service配置
+└── webapp                                         #
+    ├── WEB-INF                                    #
+    │   ├── jsp                                    #
+    │   │   ├── addBook.jsp                        # 添加书籍页面
+    │   │   ├── allBook.jsp                        # 书籍列表页面
+    │   │   └── updateBook.jsp                     # 更新书籍页面
+    │   └── web.xml                                # Web配置
+    ├── css                                        #
+    │   └── bootstrap.min.css                      # bootstrap css
+    └── index.jsp                                  # 主页
 
 ├── BootDemo.iml                                                  # 
 ├── LICENSE                                                       # 
 ├── README.md                                                     # 
 ├── pom.xml                                                       # 
-└── src                                                           # 
-    └── main                                                      # 
-        ├── java                                                  # 
-        │   └── com                                               # 
-        │       └── dzq                                           # 
-        │           └── bootdemo                                  # 
-        │               ├── Application.java                      # 程序入口
-        │               ├── SwaggerConfig.java                    # Swagger配置
-        │               ├── controller                            # 
-        │               │   └── BookAPIController.java            # 书籍增删改查API
-        │               ├── dao                                   # 
-        │               │   ├── BookMapper.java                   # 书籍Mapper接口
-        │               │   └── BookMapper.xml                    # 书籍Mapper的MyBatis文件
-        │               ├── pojo                                  # 
-        │               │   └── Books.java                        # 书籍数据模型
-        │               ├── service                               # 
-        │               │   ├── BookService.java                  # 书籍Service接口
-        │               │   └── BookServiceImpl.java              # 书籍Service实现
-        │               └── vo                                    # 
-        │                   ├── BookListResponse.java             # 书籍列表返回对象
-        │                   ├── BookResponse.java                 # 书籍返回对象
-        │                   └── ResponseBody.java                 # 返回对象
-        └── resources                                             # 
-            └── application.yaml                                  # SpringBoot配置文件
+├── src                                                           # 
+│   └── main                                                      # 
+│       ├── java                                                  # 
+│       │   └── com                                               # 
+│       │       └── dzq                                           # 
+│       │           └── bootdemo                                  # 
+│       │               ├── Application.java                      # 程序入口
+│       │               ├── SwaggerConfig.java                    # Swagger配置
+│       │               ├── controller                            # 
+│       │               │   └── BookAPIController.java            # 书籍增删改查API
+│       │               ├── dao                                   # 
+│       │               │   ├── BookMapper.java                   # 书籍Mapper接口
+│       │               │   └── BookMapper.xml                    # 书籍Mapper的MyBatis文件
+│       │               ├── pojo                                  # 
+│       │               │   └── Books.java                        # 书籍数据模型
+│       │               ├── service                               # 
+│       │               │   ├── BookService.java                  # 书籍Service接口
+│       │               │   └── BookServiceImpl.java              # 书籍Service实现
+│       │               └── vo                                    # 
+│       │                   ├── BookListResponse.java             # 书籍列表返回对象
+│       │                   ├── BookResponse.java                 # 书籍返回对象
+│       │                   └── ResponseBody.java                 # 返回对象
+│       └── resources                                             # 
+│           └── application.yaml                                  # SpringBoot配置文件
 
 ```
 ####  数据库
