@@ -1,59 +1,13 @@
 # BootDemo
- SpringBoot Demo是一个集成了SpringBoot+MyBatis的Demo工程，以书籍数据管理为例提供了书籍的增删改查的Restfull格式的API接口。
- 
-## 介绍
+SpringBoot Demo是一个集成了SpringBoot+MyBatis的Demo工程，以书籍数据管理为例提供了书籍的增删改查的Restfull格式的API接口。
 
-#### 开发环境
-IDEA
+### 开发环境
+IDEA 2019.3
 MySQL 8.0.19
 Tomcat 9
 Maven 3.6
-#### 目录结构
+### 目录结构
 ```shell
-├── java                                           #
-│   └── com                                        #
-│       └── dzq                                    #
-│           ├── api                                #
-│           │   ├── SwaggerConfig.java             # Swagger配置
-│           │   ├── controller                     #
-│           │   │   └── BookAPIController.java     # 书籍增删改查API
-│           │   └── vo                             #
-│           │       ├── BookListResponse.java      # 书籍列表返回对象
-│           │       ├── BookResponse.java          # 书籍返回对象
-│           │       └── ResponseBody.java          # 返回对象
-│           └── demo                               #
-│               ├── controller                     #
-│               │   └── BookController.java        # 书籍增删改查控制器
-│               ├── dao                            #
-│               │   ├── BookMapper.java            # 书籍Mapper接口
-│               │   └── BookMapper.xml             # 书籍Mapper的MyBatis文件
-│               ├── pojo                           #
-│               │   └── Books.java                 # 书籍数据模型
-│               └── service                        #
-│                   ├── BookService.java           # 书籍Service接口
-│                   └── BookServiceImpl.java       # 书籍Service实现
-├── resources                                      #
-│   ├── applicationContext.xml                     # Spring框架配置文件
-│   ├── database.properties                        # MySQL配置
-│   ├── mybatis-config.xml                         # MyBatis配置
-│   ├── spring-dao.xml                             # Spring整合MyBatis配置
-│   ├── spring-mvc.xml                             # SpringMVC配置
-│   └── spring-service.xml                         # Spring Service配置
-└── webapp                                         #
-    ├── WEB-INF                                    #
-    │   ├── jsp                                    #
-    │   │   ├── addBook.jsp                        # 添加书籍页面
-    │   │   ├── allBook.jsp                        # 书籍列表页面
-    │   │   └── updateBook.jsp                     # 更新书籍页面
-    │   └── web.xml                                # Web配置
-    ├── css                                        #
-    │   └── bootstrap.min.css                      # bootstrap css
-    └── index.jsp                                  # 主页
-
-├── BootDemo.iml                                                  # 
-├── LICENSE                                                       # 
-├── README.md                                                     # 
-├── pom.xml                                                       # 
 ├── src                                                           # 
 │   └── main                                                      # 
 │       ├── java                                                  # 
@@ -66,21 +20,21 @@ Maven 3.6
 │       │               │   └── BookAPIController.java            # 书籍增删改查API
 │       │               ├── dao                                   # 
 │       │               │   ├── BookMapper.java                   # 书籍Mapper接口
-│       │               │   └── BookMapper.xml                    # 书籍Mapper的MyBatis文件
 │       │               ├── pojo                                  # 
 │       │               │   └── Books.java                        # 书籍数据模型
 │       │               ├── service                               # 
 │       │               │   ├── BookService.java                  # 书籍Service接口
 │       │               │   └── BookServiceImpl.java              # 书籍Service实现
 │       │               └── vo                                    # 
-│       │                   ├── BookListResponse.java             # 书籍列表返回对象
-│       │                   ├── BookResponse.java                 # 书籍返回对象
 │       │                   └── ResponseBody.java                 # 返回对象
 │       └── resources                                             # 
 │           └── application.yaml                                  # SpringBoot配置文件
-
+├── BootDemo.iml                                                  # 
+├── LICENSE                                                       # 
+├── README.md                                                     # 
+├── pom.xml                                                       # 
 ```
-####  数据库
+###  数据库
 ```shell
 CREATE DATABASE `ssmbuild`;
 
@@ -108,8 +62,9 @@ INSERT INTO ssmbuild.books (id, name, num, detail) VALUES (9, 'Linux', 5, '从�
 INSERT INTO ssmbuild.books (id, name, num, detail) VALUES (10, '阿斯顿撒', 1, '实时');
 ```
 
-#### Maven项目
-1,pom依赖
+### Maven项目
+#### pom依赖
+
 ```shell
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -184,7 +139,7 @@ INSERT INTO ssmbuild.books (id, name, num, detail) VALUES (10, '阿斯顿撒', 1
             <filtering>true</filtering>
         </resource>
     </resources>
-```
+ ```
 #### Spring Boot 配置文件
  ```shell
 logging:
@@ -197,75 +152,19 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/ssmbuild?useSSL=true&useUnicode=true&characterEncoding=utf8&serverTimezone=UTC
     username: root
-    password: 123456
+    password: 12345678
 mybatis:
   mapper-locations: classpath:com/dzq/bootdemo/dao/*.xml
   type-aliases-package: com.dzq.bootdemo.pojo
-  ```
+ ```
 
 
 #### 提供的接口
  ```shell
-/**
-     * 书籍列表
-     * @return
-     */
-    @GetMapping(value = "/book/list")
-    @ApiOperation(value = "查询所有书籍", notes = "查询所有书籍", code = 200, produces = "application/json")
-    public BookListResponse list() {
-        BookListResponse body = new BookListResponse();
-        List<Books> list =  bookService.queryAllBook();
-        body.setData(list);
-        return body;
-    }
-
-    /**
-     * 查询指定id的数据
-     * @param id
-     * @return
-     */
-    @GetMapping(value = "/book/{id}")
-    @ApiOperation(value = "查询指定ID的书籍", notes = "书籍ID", code = 200, produces = "application/json")
-    public BookResponse queryBookById(@PathVariable("id") int id) {
-        BookResponse body = new BookResponse();
-        body.setData(bookService.queryBookById(id));
-        return body;
-    }
-
-    /**
-     * 添加书籍
-     * @param books 书籍数据
-     * @return
-     */
-    @PostMapping(value = "/book")
-    @ApiOperation(value = "添加书籍", notes = "添加书籍", code = 200, produces = "application/json")
-    public BookResponse addBook(Books books) {
-        BookResponse body = new BookResponse();
-        body.setData(bookService.addBook(books));
-        return body;
-    }
-    /**
-     * 删除书籍
-     * @param id 书籍id
-     * @return
-     */
-    @DeleteMapping(value = "/book/{id}")
-    @ApiOperation(value = "删除书籍", notes = "删除指定ID的书籍", code = 200, produces = "application/json")
-    public BookResponse deleteBook(@PathVariable("id") int id) {
-        BookResponse body = new BookResponse();
-        body.setData(bookService.deleteBookById(id));
-        return body;
-    }
-    /**
-     * 更新书籍
-     * @param books 书籍数据
-     * @return
-     */
-    @PutMapping(value = "/book")
-    @ApiOperation(value = "更新书籍", notes = "更新书籍信息", code = 200, produces = "application/json")
-    public BookResponse updateBook(Books books) {
-        BookResponse body = new BookResponse();
-        body.setData(bookService.updateBook(books));
-        return body;
-    }
-```
+POST /book 添加书籍
+PUT /book 更新书籍
+GET /book/{id} 查询指定ID的书籍
+DELETE /book/{id} 删除书籍
+GET /book/list 查询所有书籍
+GET /book/search/{name} 查询包含指定名称书籍
+ ```
