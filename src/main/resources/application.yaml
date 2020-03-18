@@ -8,7 +8,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/ssmbuild?useSSL=true&useUnicode=true&characterEncoding=utf8&serverTimezone=UTC
     username: root
-    password: 123456
+    password: 12345678
 mybatis:
   mapper-locations: classpath:com/dzq/bootdemo/dao/*.xml
   type-aliases-package: com.dzq.bootdemo.pojo

@@ -83,23 +83,29 @@ Maven 3.6
 ####  数据库
 ```shell
 CREATE DATABASE `ssmbuild`;
- 
- USE `ssmbuild`;
- 
- DROP TABLE IF EXISTS `books`;
- 
- CREATE TABLE `books` (
-   `bookID` INT(10) NOT NULL AUTO_INCREMENT COMMENT '书id',
-   `bookName` VARCHAR(100) NOT NULL COMMENT '书名',
-   `bookCounts` INT(11) NOT NULL COMMENT '数量',
-   `detail` VARCHAR(200) NOT NULL COMMENT '描述',
-   KEY `bookID` (`bookID`)
- ) ENGINE=INNODB DEFAULT CHARSET=utf8
- 
- INSERT  INTO `books`(`bookID`,`bookName`,`bookCounts`,`detail`)VALUES 
- (1,'Java',1,'从入门到放弃'),
- (2,'MySQL',10,'从删库到跑路'),
- (3,'Linux',5,'从进门到进牢');
+
+USE `ssmbuild`;
+create table books
+(
+	id int auto_increment comment '书id'
+		primary key,
+	name varchar(100) not null comment '书名',
+	num int not null comment '数量',
+	detail varchar(200) not null comment '描述'
+)
+charset=utf8;
+
+
+INSERT INTO ssmbuild.books (id, name, num, detail) VALUES (1, 'Java', 1, '从入门到放弃');
+INSERT INTO ssmbuild.books (id, name, num, detail) VALUES (2, 'MySQL', 10, '从删库到跑路');
+INSERT INTO ssmbuild.books (id, name, num, detail) VALUES (3, 'Linux', 5, '从进门到进牢');
+INSERT INTO ssmbuild.books (id, name, num, detail) VALUES (4, '安慰我', 100, '大声道撒');
+INSERT INTO ssmbuild.books (id, name, num, detail) VALUES (5, 'MySQL', 10, '从删库到跑路');
+INSERT INTO ssmbuild.books (id, name, num, detail) VALUES (6, 'Linux', 5, '从进门到进牢');
+INSERT INTO ssmbuild.books (id, name, num, detail) VALUES (7, 'Java', 1, '从入门到放弃');
+INSERT INTO ssmbuild.books (id, name, num, detail) VALUES (8, 'MySQL', 10, '从删库到跑路');
+INSERT INTO ssmbuild.books (id, name, num, detail) VALUES (9, 'Linux', 5, '从进门到进牢');
+INSERT INTO ssmbuild.books (id, name, num, detail) VALUES (10, '阿斯顿撒', 1, '实时');
 ```
 
 #### Maven项目
@@ -128,12 +134,12 @@ CREATE DATABASE `ssmbuild`;
             <artifactId>c3p0</artifactId>
             <version>0.9.5.2</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter -->
-        <dependency>
-            <groupId>org.mybatis.spring.boot</groupId>
-            <artifactId>mybatis-spring-boot-starter</artifactId>
-            <version>2.1.1</version>
-        </dependency>
+        <!-- https://mvnrepository.com/artifact/tk.mybatis/mapper-spring-boot-starter -->
+                <dependency>
+                    <groupId>tk.mybatis</groupId>
+                    <artifactId>mapper-spring-boot-starter</artifactId>
+                    <version>2.0.3</version>
+                </dependency>
 
         <!-- JSON-->
         <dependency>

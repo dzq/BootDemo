@@ -1,13 +1,11 @@
 package com.dzq.bootdemo.controller;
 
-import com.dzq.bootdemo.vo.BookListResponse;
-import com.dzq.bootdemo.vo.BookResponse;
 import com.dzq.bootdemo.pojo.Books;
 import com.dzq.bootdemo.service.BookService;
+import com.dzq.bootdemo.vo.ResponseBody;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,11 +17,9 @@ import java.util.List;
  */
 public class BookAPIController {
 
-    private final BookService bookService;
+    @Autowired
+    private  BookService bookService;
 
-    public BookAPIController( BookService bookService) {
-        this.bookService = bookService;
-    }
 
 
     /**
@@ -32,11 +28,20 @@ public class BookAPIController {
      */
     @GetMapping(value = "/book/list")
     @ApiOperation(value = "查询所有书籍", notes = "查询所有书籍", code = 200, produces = "application/json")
-    public BookListResponse list() {
-        BookListResponse body = new BookListResponse();
+    public ResponseBody<List<Books>> list() {
         List<Books> list =  bookService.queryAllBook();
-        body.setData(list);
-        return body;
+        return new ResponseBody<>(list);
+    }
+
+    /**
+     * 书籍列表
+     * @return
+     */
+    @GetMapping(value = "/book/search/{name}")
+    @ApiOperation(value = "查询包含指定名称书籍", notes = "查询包含指定名称书籍", code = 200, produces = "application/json")
+    public ResponseBody<List<Books>> listByName(@PathVariable("name") String name) {
+        List<Books> list = bookService.queryBookByName(name);
+        return new ResponseBody<>(list);
     }
 
     /**
@@ -46,10 +51,9 @@ public class BookAPIController {
      */
     @GetMapping(value = "/book/{id}")
     @ApiOperation(value = "查询指定ID的书籍", notes = "书籍ID", code = 200, produces = "application/json")
-    public BookResponse queryBookById(@PathVariable("id") int id) {
-        BookResponse body = new BookResponse();
-        body.setData(bookService.queryBookById(id));
-        return body;
+    public ResponseBody<Books> queryBookById(@PathVariable("id") int id) {
+        Books book =  bookService.queryBookById(id);
+        return new ResponseBody<>(book);
     }
 
     /**
@@ -59,10 +63,9 @@ public class BookAPIController {
      */
     @PostMapping(value = "/book")
     @ApiOperation(value = "添加书籍", notes = "添加书籍", code = 200, produces = "application/json")
-    public BookResponse addBook(Books books) {
-        BookResponse body = new BookResponse();
-        body.setData(bookService.addBook(books));
-        return body;
+    public ResponseBody addBook(Books books) {
+        int id = bookService.addBook(books);
+        return new ResponseBody<>(id);
     }
     /**
      * 删除书籍
@@ -71,10 +74,9 @@ public class BookAPIController {
      */
     @DeleteMapping(value = "/book/{id}")
     @ApiOperation(value = "删除书籍", notes = "删除指定ID的书籍", code = 200, produces = "application/json")
-    public BookResponse deleteBook(@PathVariable("id") int id) {
-        BookResponse body = new BookResponse();
-        body.setData(bookService.deleteBookById(id));
-        return body;
+    public ResponseBody deleteBook(@PathVariable("id") int id) {
+        int deleteId = bookService.deleteBookById(id);
+        return new ResponseBody<>(deleteId);
     }
     /**
      * 更新书籍
@@ -83,9 +85,8 @@ public class BookAPIController {
      */
     @PutMapping(value = "/book")
     @ApiOperation(value = "更新书籍", notes = "更新书籍信息", code = 200, produces = "application/json")
-    public BookResponse updateBook(Books books) {
-        BookResponse body = new BookResponse();
-        body.setData(bookService.updateBook(books));
-        return body;
+    public ResponseBody updateBook(Books books) {
+        int id = bookService.updateBook(books);
+        return new ResponseBody<>(id);
     }
 }
